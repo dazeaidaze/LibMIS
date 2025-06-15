@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}添加图书{% endblock %}
+
+{% block content %}
+    <h1>添加图书</h1>
+    <form method="post">
+        <label for="title">书名:</label>
+        <input type="text" id="title" name="title" required><br>
+        <label for="author">作者:</label>
+        <input type="text" id="author" name="author"><br>
+        <label for="publisher">出版社:</label>
+        <input type="text" id="publisher" name="publisher"><br>
+        <label for="category">类目:</label>
+        <input type="text" id="category" name="category"><br>
+        <label for="publication_date">出版日期:</label>
+        <input type="date" id="publication_date" name="publication_date"><br>
+        <label for="total_copies">总数:</label>
+        <input type="number" id="total_copies" name="total_copies" required><br>
+        <button type="submit">添加</button>
+    </form>
+{% endblock %}

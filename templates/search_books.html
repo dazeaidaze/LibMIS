@@ -1,0 +1,58 @@
+
+
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>图书搜索</h2>
+
+<!-- 搜索表单 -->
+<form method="get" action="{{ url_for('search_books_route') }}">
+    <input type="text" name="q" value="{{ request.args.get('q', '') }}" placeholder="搜索图书...">
+    <button type="submit">搜索</button>
+</form>
+
+<!-- 图书列表 -->
+{% if books %}
+<table border="1" cellspacing="0" cellpadding="5" bordercolor="#dddddd" width="100%">
+    <thead>
+        <tr bgcolor="#f2f2f2">
+            <th>图书ID</th>
+            <th>书名</th>
+            <th>作者</th>
+            <th>出版社</th>
+            <th>类目</th>
+            <th>出版日期</th>
+            <th>总数</th>
+            <th>可借数</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book_item in books %}
+        <tr>
+            <td>{{ book_item.get('id', '') }}</td>
+            <td>{{ book_item.get('title', '') }}</td>
+            <td>{{ book_item.get('author', '') }}</td>
+            <td>{{ book_item.get('publisher', '') }}</td>
+            <td>{{ book_item.get('category', '') }}</td>
+            <td>{{ book_item.get('publication_date', '') }}</td>
+            <td>{{ book_item.get('total_copies', 0) }}</td>
+            <td>{{ book_item.get('available_copies', 0) }}</td>
+            <td>
+                {% if book_item.get('available_copies', 0) > 0 %}
+                <form action="/borrow_books" method="post" style="display: inline;">
+                    <input type="hidden" name="book_id" value="{{ book_item.get('id', '') }}">
+                    <button type="submit">借阅</button>
+                </form>
+                {% else %}
+                <span>已借完</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>没有找到符合条件的图书</p>
+{% endif %}
+{% endblock %}

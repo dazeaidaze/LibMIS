@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}首页{% endblock %}
+
+{% block content %}
+    <h1>欢迎来到图书管理系统</h1>
+    {% if logged_in %}
+        <p>您已登录！</p>
+    {% else %}
+        <p>请登录或注册以使用更多功能。</p>
+    {% endif %}
+{% endblock %}

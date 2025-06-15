@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>借阅记录</h2>
+<table>
+    <thead>
+        <tr>
+            <th>图书标题</th>
+            <th>借阅日期</th>
+            <th>预期归还日期</th>
+            <th>实际归还日期</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.title }}</td>
+            <td>{{ record.borrow_date }}</td>
+            <td>{{ record.expected_return_date }}</td>
+            <td>{{ record.return_date }}</td>
+            <td>
+                {% if not record.return_date %}
+                <form method="post" action="{{ url_for('return_book_route', record_id=record.id) }}">
+                    <button type="submit">归还</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
